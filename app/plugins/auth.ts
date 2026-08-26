@@ -7,7 +7,7 @@ export default defineNuxtPlugin(async () => {
   // If we have a token but user data is missing, fetch from API
   if (store.token && !store.user) {
     try {
-      const API_BASE = 'http://127.0.0.1:8000'
+      const API_BASE = 'https://api-open-ticket.squadmanager.id'
       const response = await $fetch<{ success: boolean; data: { user: any } }>(`${API_BASE}/api/v1/me`, {
         headers: {
           Authorization: `Bearer ${store.token}`,
