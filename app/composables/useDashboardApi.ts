@@ -1,7 +1,5 @@
 import { useAuthStore } from '~/stores/auth'
 
-const API_BASE = 'https://api-open-ticket.squadmanager.id'
-
 export interface DashboardData {
   total_tickets: number
   total_mine: number
@@ -30,6 +28,8 @@ export interface DashboardData {
 }
 
 export function useDashboardApi() {
+  const config = useRuntimeConfig()
+  const API_BASE = config.public.apiBase
   const store = useAuthStore()
 
   async function fetchDashboard(): Promise<DashboardData> {

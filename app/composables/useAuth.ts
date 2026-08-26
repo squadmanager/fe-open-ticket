@@ -1,7 +1,5 @@
 import { useAuthStore } from '~/stores/auth'
 
-const API_BASE = 'https://api-open-ticket.squadmanager.id'
-
 interface LoginApiResponse {
   success: boolean
   message: string
@@ -36,6 +34,8 @@ interface CreatePasswordApiResponse {
 }
 
 export function useAuth() {
+  const config = useRuntimeConfig()
+  const API_BASE = config.public.apiBase
   const store = useAuthStore()
 
   const user = computed(() => store.user)

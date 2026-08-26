@@ -81,6 +81,7 @@ export function useTickets() {
     priorityId: number
     highPriorityReason: string
     attachments: File[]
+    existingAttachments?: string[]
   }) {
     const api = useTicketApi()
     const formData = new FormData()
@@ -89,6 +90,11 @@ export function useTickets() {
     formData.append('priority_id', String(data.priorityId))
     if (data.highPriorityReason) {
       formData.append('reason_high_priority', data.highPriorityReason)
+    }
+    if (data.existingAttachments && data.existingAttachments.length > 0) {
+      data.existingAttachments.forEach((id) => {
+        formData.append('existing_attachment_ids[]', id)
+      })
     }
     if (data.attachments.length > 0) {
       data.attachments.forEach((file) => {

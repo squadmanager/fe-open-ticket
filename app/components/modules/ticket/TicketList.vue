@@ -89,8 +89,9 @@ async function confirmDelete() {
   }
 }
 
-async function handleUpdateTicket(data: { title: string; description: string; priorityId: number; highPriorityReason: string; attachments: File[] }) {
+async function handleUpdateTicket(data: { title: string; description: string; priorityId: number; highPriorityReason: string; attachments: File[]; existingAttachments?: string[] }) {
   if (!editingTicket.value) return
+  isSubmitting.value = true
   try {
     await updateTicket(editingTicket.value.id, data)
     isEditModalOpen.value = false
@@ -99,6 +100,8 @@ async function handleUpdateTicket(data: { title: string; description: string; pr
   } catch (error) {
     console.error('Failed to update ticket:', error)
     showAlert('error', 'Gagal', 'Gagal mengupdate ticket.')
+  } finally {
+    isSubmitting.value = false
   }
 }
 
@@ -417,6 +420,7 @@ onMounted(() => {
         <ModulesTicketEditTicketModal
           :is-open="isEditModalOpen"
           :ticket="editingTicket"
+          :is-submitting="isSubmitting"
           @close="isEditModalOpen = false; editingTicket = null"
           @submit="handleUpdateTicket"
         />

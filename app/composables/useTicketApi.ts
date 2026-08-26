@@ -1,7 +1,5 @@
 import { useAuthStore } from '~/stores/auth'
 
-const API_BASE = 'https://api-open-ticket.squadmanager.id'
-
 export interface TicketApiResponse {
   data: any[]
   meta: {
@@ -29,6 +27,8 @@ export interface PriorityItem {
 }
 
 export function useTicketApi() {
+  const config = useRuntimeConfig()
+  const API_BASE = config.public.apiBase
   const store = useAuthStore()
 
   const authHeaders = computed(() => ({
