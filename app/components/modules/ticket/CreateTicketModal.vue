@@ -82,7 +82,7 @@ async function loadData() {
 }
 
 function handleSubmit() {
-  if (!isFormValid.value || isSubmitting.value) return;
+  if (!isFormValid.value || props.isSubmitting) return;
   emit("submit", {
     title: form.title,
     description: form.description,
